@@ -1,0 +1,29 @@
+<div *ngIf="isPageReady">
+  
+<section class="hero">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          {{form.form.slug}} / {{form.id}}
+        </h1>
+      </div>
+    </div>
+  </section>
+  <table class="table">
+    <thead>
+      <td></td>
+    </thead>
+    <tbody *ngFor="let key of objectKeys">
+      <tr *ngIf="!form.form.fields[key].optional || form.submission[key]">
+       
+          <td>
+            {{key}}
+          </td>
+          <td>
+            {{form.submission[key]}}
+          </td>
+
+      </tr>
+    </tbody>
+  </table>
+</div>

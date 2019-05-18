@@ -1,0 +1,48 @@
+<mat-spinner *ngIf="!isPageReady" class="loading"></mat-spinner>
+
+<div class="" *ngIf="isPageReady">
+
+  <section class="forms">
+    <mat-card>
+      <div class="title">
+        <h1 class="is-size-3">{{form.name[locale]}}</h1>
+      </div>
+      <hr>
+      <table class="table is-fullwidth is-hoverable">
+        <thead>
+          <tr>
+            <td>İsim</td>
+            <td></td>
+            <td></td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let form of form.appliedForms.data">
+            <td>{{form.submission.name}}</td>
+            <td>
+              <mat-icon>{{form.is_read ? 'bookmark' : 'bookmark_border'}}</mat-icon>
+            </td>
+            <td>
+              <a [routerLink]="['/form/form', form.id]">
+                <button mat-button type="button">
+                  <mat-icon>arrow_right_alt</mat-icon>
+                </button>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <mat-paginator [length]="form.appliedForms.total" [pageSize]="intval(form.appliedForms.per_page)" [pageSizeOptions]="pageSizeOptions"
+            [pageIndex]="form.appliedForms.current_page - 1" (page)="changePageOptions($event)">
+          </mat-paginator>
+        </tfoot>
+      </table>
+    </mat-card>
+
+  </section>
+
+  <!-- <button mat-fab class="add-btn" [routerLink]="['/form/add']">
+    <mat-icon>add</mat-icon>
+  </button> -->
+
+</div>
