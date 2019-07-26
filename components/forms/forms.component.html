@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <app-pagination 
   [helpersService]="helpersService" 
   [service]="service" 
@@ -8,3 +9,52 @@
   title="Formlar" 
   route="form.forms.paginate"
   addLink="/forms/add"></app-pagination>
+=======
+<mat-spinner *ngIf="!isPageReady" class="loading"></mat-spinner>
+
+<div class="container" *ngIf="isPageReady">
+
+  <section class="forms">
+    <mat-card>
+      <div class="title">
+        <h1 class="is-size-3">Forumlar</h1>
+      </div>
+      <hr>
+
+      <table class="table is-fullwidth is-hoverable">
+        <thead>
+          <tr>
+            <td>İsim</td>
+            <td>Slug</td>
+            <td></td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let form of forms.data">
+            <td>{{form.name[locale]}}</td>
+            <td>{{form.slug}}</td>
+            <td>
+              <a [routerLink]="['/form/applied-form', form.slug]">
+                <button mat-button type="button">
+                  <mat-icon>arrow_right_alt</mat-icon>
+                </button>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <mat-paginator [length]="forms.total" [pageSize]="intval(forms.per_page)" [pageSizeOptions]="pageSizeOptions"
+            [pageIndex]="forms.current_page - 1" (page)="changePageOptions($event)">
+          </mat-paginator>
+        </tfoot>
+      </table>
+    </mat-card>
+
+  </section>
+
+  <!-- <button mat-fab class="add-btn" [routerLink]="['/form/add']">
+    <mat-icon>add</mat-icon>
+  </button> -->
+
+</div>
+>>>>>>> 5cbfd8c21aacc054653da08789485b15fe618e3f
