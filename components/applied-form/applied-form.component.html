@@ -1,0 +1,36 @@
+<ng-template #loading>
+    <mat-spinner class="loading"></mat-spinner>
+</ng-template>
+
+<div class="container" *ngIf="isPageReady; else loading">
+    <mat-card>
+        <div class="subtitle">
+            <h3 class="is-size-4">{{appliedForm.form.name}}</h3>
+            <hr>
+        </div>
+        <div class="columns">
+            <div class="column is-full" *ngFor="let section of appliedForm.form.fields">
+                <div class="subtitle">
+                    <h3 class="is-size-5">{{section.title}}</h3>
+                </div>
+                <table class="table is-fullwidth is-hoverable">
+                    <tbody>
+                        <tr *ngFor="let field of section.fields">
+                            <td>{{field.title}}</td>
+                            <td>
+                                <ng-template #normalField>
+                                    {{appliedForm.values[field.name] || ''}}
+                                </ng-template>
+                                <div *ngIf="field.type === 'file'; else normalField">
+                                    <a [href]="appliedForm.values[field.name] || ''" target="_blank">
+                                        {{field.name}}
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </mat-card>
+</div>
