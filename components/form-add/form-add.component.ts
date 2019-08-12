@@ -43,7 +43,7 @@ export class FormAddComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subs.add(
-      this.cacheService.get('admin.languages', this.requestService.makeGetRequest('admin.languages'))
+      this.cacheService.get('languages', this.requestService.makeGetRequest('core.language.languages'))
         .subscribe(response => this.languages = response)
     );
   }
