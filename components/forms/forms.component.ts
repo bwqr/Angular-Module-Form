@@ -16,7 +16,7 @@ export class FormsComponent implements OnInit {
 
   editLink = {
     url: '/form',
-    key: 'slug'
+    key: 'id'
   };
 
   constructor(

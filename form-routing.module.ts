@@ -11,7 +11,7 @@ const routes: Routes = [
   {
     path: '', component: NavigationComponent, children: [
       { path: 'forms', component: FormsComponent },
-      { path: 'form/:slug', component: FormComponent },
+      { path: 'form/:id', component: FormComponent },
       { path: 'forms/add', component: FormAddComponent },
       { path: 'applied-forms', component: AppliedFormsComponent },
       { path: 'applied-form/:id', component: AppliedFormComponent }

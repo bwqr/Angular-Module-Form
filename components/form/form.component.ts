@@ -53,13 +53,7 @@ export class FormComponent implements OnInit {
 
     this.subs.add(
       this.requestService.putForm(this.form.id, data)
-        .subscribe(response => {
-          if (data.slug === this.form.slug) {
-            this.service.openSnack(this.snackBar, locale.save_success, locale.ok, true)
-          } else {
-            this.helperService.navigate(['form', data.slug])
-          }
-        })
+        .subscribe(response => this.refreshPage())
     );
   }
 
@@ -69,7 +63,7 @@ export class FormComponent implements OnInit {
         switchMap((params: Params) => {
           this.form = null;
 
-          return this.requestService.getForm(params['slug']);
+          return this.requestService.getForm(params['id']);
         })
       ).subscribe(response => this.form = response)
     );
@@ -139,5 +133,15 @@ export class FormComponent implements OnInit {
         this.service.openSnack(this.snackBar, locale.delete_success, locale.ok, true);
       })
     );
+  }
+
+  deleteForm() {
+    this.service.deleteAlert(locale.delete_ask, () => {
+      this.subs.add(
+        this.requestService.deleteForm(this.form.id)
+          .subscribe(response => this.helperService.navigate(['forms']))
+      );
+    });
+
   }
 }

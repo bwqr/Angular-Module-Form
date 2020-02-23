@@ -16,8 +16,8 @@ export class FormRequestService extends MainRequestService {
     super(http, helpersService, routingListService);
   }
 
-  getForm(slug: string): Observable<any> {
-    return this.makeGetRequest('form.form', slug);
+  getForm(id: number): Observable<any> {
+    return this.makeGetRequest('form.form', `${id}`);
   }
 
   postForm(data: any): Observable<any> {
@@ -54,6 +54,10 @@ export class FormRequestService extends MainRequestService {
 
   deleteField(id: number): Observable<any> {
     return this.makeDeleteRequest('form.formable.field', `${id}`);
+  }
+
+  deleteForm(id: number): Observable<any> {
+    return this.makeDeleteRequest('form.form', `${id}`);
   }
 
   getAppliedForm(id: number): Observable<any> {
