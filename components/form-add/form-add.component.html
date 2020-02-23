@@ -4,166 +4,34 @@
 
 <div class="container" *ngIf="isPageReady; else loading">
     <div class="columns">
-        <div class="column is-12">
+        <div class="column is-half is-offset-one-quarter">
             <mat-card class="is-fullwidth">
                 <div class="subtitle">
                     <h3 class="is-size-5">Form Bilgileri</h3>
                     <hr>
                 </div>
-                <div class="columns">
-                    <div class="column is-one-third">
-                        <form #f="ngForm">
-                            <div class="field">
-                                <mat-form-field>
-                                    <input matInput placeholder="İsim" ngModel name="name" required>
-                                </mat-form-field>
-                            </div>
-                            <div class="field">
-                                <mat-form-field>
-                                    <input matInput placeholder="Eşsiz Ad" ngModel name="slug" required>
-                                </mat-form-field>
-                            </div>
-                            <div class="field">
-                                <mat-select placeholder="Dil" ngModel name="language" required>
-                                    <mat-option *ngFor="let language of languages" [value]="language.id">
-                                        {{ language.name }}
-                                    </mat-option>
-                                </mat-select>
-                            </div>
 
-                        </form>
-                    </div>
-                </div>
-            </mat-card>
-        </div>
-    </div>
-
-    <div class="subtitle">
-        <h3 class="is-size-4">Form Alanları</h3>
-        <hr>
-    </div>
-
-    <div class="columns">
-        <div class="column is-one-third">
-            <mat-card>
-                <div class="subtitle">
-                    <h3>Bölüm Ekle</h3>
-                </div>
-                <div class="field">
-                    <mat-chip-list aria-label="Option Add">
-                        <mat-chip *ngFor="let sect of sections; let i=index">
-                            {{sect.title}}
-                            <mat-icon matChipRemove (click)="removeSection(i)">cancel</mat-icon>
-                        </mat-chip>
-                    </mat-chip-list>
-                </div>
-                <div class="field">
-                    <mat-form-field>
-                        <input matInput placeholder="Bölüm"
-                            (keyup.enter)="addSection(toAddSection.value);toAddSection.value = ''" required
-                            #toAddSection>
-                        <button mat-button matSuffix mat-icon-button aria-label="Add"
-                            (click)="addSection(toAddSection.value);toAddSection.value = ''">
-                            <mat-icon>add</mat-icon>
-                        </button>
-                    </mat-form-field>
-                </div>
-            </mat-card>
-        </div>
-        <div class="column is-one-third">
-            <mat-card>
-                <div class="subtitle">
-                    <h3>Alan Ekle</h3>
-                </div>
-                <div class="field">
-                    <mat-select placeholder="Form Türü" (selectionChange)="typeChanged()" [(ngModel)]="selectedType">
-                        <mat-option *ngFor="let type of types" [value]="type.type">
-                            {{ type.name }}
-                        </mat-option>
-                    </mat-select>
-                </div>
-
-                <div class="field" *ngIf="field">
+                <form #f="ngForm">
                     <div class="field">
                         <mat-form-field>
-                            <input matInput placeholder="İsim" [(ngModel)]="field.title" name="title" required>
+                            <input matInput placeholder="İsim" ngModel name="name" required>
                         </mat-form-field>
                     </div>
-
                     <div class="field">
                         <mat-form-field>
-                            <input matInput placeholder="Alt isim" [(ngModel)]="field.placeHolder" name="placeholder"
-                                required>
+                            <input matInput placeholder="Eşsiz Ad" ngModel name="slug" required>
                         </mat-form-field>
                     </div>
-
                     <div class="field">
-                        <mat-select placeholder="Bölüm" #sectionIndex>
-                            <mat-option *ngFor="let section of sections; let i=index" [value]="i">
-                                {{ section.title }}
+                        <mat-select placeholder="Dil" ngModel name="language_id" required>
+                            <mat-option *ngFor="let language of languages" [value]="language.id">
+                                {{ language.name }}
                             </mat-option>
                         </mat-select>
                     </div>
 
-                    <div class="field">
-                        <mat-checkbox [(ngModel)]="field.required">Zorunlu</mat-checkbox>
-                    </div>
+                </form>
 
-                    <div class="field"
-                        *ngIf="selectedType === 'radio' || selectedType === 'select' || selectedType === 'checkbox'">
-                        <div class="field">
-                            <mat-chip-list aria-label="Option Add">
-                                <mat-chip *ngFor="let opt of field.options; let i=index">
-                                    {{opt}}
-                                    <mat-icon matChipRemove (click)="removeOption(field, i)">cancel</mat-icon>
-                                </mat-chip>
-                            </mat-chip-list>
-                        </div>
-                        <div class="field">
-                            <mat-form-field>
-                                <input matInput placeholder="Seçenekler"
-                                    (keyup.enter)="addOption(field, fieldOptions.value);fieldOptions.value = ''"
-                                    required #fieldOptions>
-                                <button mat-button matSuffix mat-icon-button aria-label="Add"
-                                    (click)="addOption(field, fieldOptions.value);fieldOptions.value = ''">
-                                    <mat-icon>add</mat-icon>
-                                </button>
-                            </mat-form-field>
-                        </div>
-                    </div>
-
-                    <div class="field" *ngIf="selectedType === 'file'">
-                        <mat-form-field>
-                            <input matInput placeholder="Dosya türleri" [(ngModel)]="field.accept" name="accept"
-                                required>
-                        </mat-form-field>
-                    </div>
-
-                    <button mat-raised-button
-                        (click)="addField(sections[sectionIndex.value], field); field = null; selectedType = null">Ekle</button>
-                </div>
-            </mat-card>
-        </div>
-        <div class="column is-one-third">
-            <mat-card>
-                <div class="subtitle">
-                    <h3>Form</h3>
-                </div>
-                <aside class="menu">
-                    <ul class="menu-list">
-                        <li *ngFor="let section of sections; let i = index">
-                            <span>{{section.title}}</span>
-                            <ul>
-                                <li *ngFor="let field of section.fields; let j = index">
-                                    <mat-chip>
-                                        {{field.type}} - {{field.title}}
-                                        <mat-icon matChipRemove (click)="removeField(section, j)">cancel</mat-icon>
-                                    </mat-chip>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </aside>
             </mat-card>
         </div>
     </div>

@@ -1,1 +1,77 @@
-<p>form works!</p>
+<ng-template #loading>
+    <mat-spinner class="loading"></mat-spinner>
+</ng-template>
+
+<div class="container" *ngIf="isPageReady; else loading">
+    <mat-card>
+        <nav class="action-center navbar is-transparent">
+            <div class="navbar-menu">
+                <ul class="navbar-start">
+                    <li class="navbar-item">
+                        <button mat-raised-button type="button" color="warn" (click)="deleteForm()">
+                            <mat-icon>delete</mat-icon>Çöpe taşı
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </mat-card>
+
+    <div class="columns">
+        <div class="column is-half is-offset-one-quarter">
+            <mat-card class="is-fullwidth">
+                <nav class="action-center navbar is-transparent">
+                    <div class="navbar-menu">
+                        <ul class="navbar-start">
+                            <li class="navbar-item">
+                                <button mat-raised-button type="button" color="primary" (click)="saveForm(f)">
+                                    <mat-icon>save</mat-icon>Kaydet
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+
+                <hr>
+
+                <div class="subtitle">
+                    <h3 class="is-size-5">Form Bilgileri</h3>
+                    <hr>
+                </div>
+
+                <form #f="ngForm">
+                    <div class="field">
+                        <mat-form-field>
+                            <input matInput placeholder="İsim" [ngModel]="form.name" name="name" required>
+                        </mat-form-field>
+                    </div>
+                    <div class="field">
+                        <mat-form-field>
+                            <input matInput placeholder="Eşsiz Ad" [ngModel]="form.slug" name="slug" required>
+                        </mat-form-field>
+                    </div>
+                    <div class="field">
+                        <mat-select placeholder="Dil" [ngModel]="form.language_id" name="language_id" required>
+                            <mat-option *ngFor="let language of languages" [value]="language.id">
+                                {{ language.name }}
+                            </mat-option>
+                        </mat-select>
+                    </div>
+
+                </form>
+            </mat-card>
+        </div>
+    </div>
+
+    <div class="columns">
+        <div class="column is-12">
+            <mat-card>
+                <app-sections title="Form Bolumleri" [sections]="form.sections" flags="0" [service]="service" (createSection)="createSection($event)"
+                (createField)="createField($event)" (deleteSection)="deleteSection($event)" (deleteField)="deleteField($event)"
+                (updateField)="updateField($event)" (updateSection)="updateSection($event)"
+                (updateWeights)="updateWeights($event)"></app-sections>
+            </mat-card>
+        </div>
+    </div>
+
+</div>
