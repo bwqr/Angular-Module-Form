@@ -53,7 +53,7 @@ export class FormComponent implements OnInit {
 
     this.subs.add(
       this.requestService.putForm(this.form.id, data)
-        .subscribe(response => this.refreshPage())
+        .subscribe(response => this.service.openSnack(this.snackBar, locale.save_success, locale.ok, true))
     );
   }
 
